@@ -3,8 +3,8 @@
 	xmlns		= "http://www.w3.org/ns/widgets"
 	xmlns:gap   = "http://phonegap.com/ns/1.0"
 	id          = "com.example.compass"
-	version     = "1.6.0"
-	versionCode = "16"
+	version     = "1.7.0"
+	versionCode = "17"
 >
 	<preference name="phonegap-version" value="3.6.3" />
 
