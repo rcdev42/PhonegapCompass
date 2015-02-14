@@ -30,8 +30,20 @@
 		<script src="jquery-2.1.3.min.js"></script>
 		<script src="jquery.mobile-1.4.5.min.js"></script>
 
-		<!-- script type="text/javascript" charset="utf-8" src="cordova-old-ripple.js"></script -->
-		<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+		<script type="text/javascript">
+		    var userAgent = navigator.userAgent.toLowerCase();
+
+		    console.log('userAgent: ' + userAgent);
+
+		    if (userAgent.match(/android|iphone|ipad|ipod|blackberry|iemobile|/))
+		    {
+			    document.write("<script type='text/javascript' src='cordova.js'><\/script>"); // allow the build tool to inject this file based on the config.xml preference
+		  	}
+		  	else
+		  	{
+		    	document.write("<script type='text/javascript' src='cordova-old-ripple.js'><\/script>"); // for testing
+			}
+		</script>
 		
 	</head>
 	<body>
