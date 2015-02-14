@@ -7,7 +7,10 @@
 	versionCode = "12"
 >
 	<preference name="phonegap-version" value="3.6.3" />
-	<gap:plugin name="org.apache.cordova.device-orientation" />
+
+	<gap:plugin name="Compass" value="org.apache.cordova.core.CompassListener" />
+	<gap:plugin name="Geolocation" value="org.apache.cordova.core.GeoBroker" />
+
 	<name>Basic Compass</name>
 	<description>Basic Compass</description>
 </widget>

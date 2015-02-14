@@ -5,6 +5,18 @@
 		<title>&nbsp;</title>
 
 		<style>
+			#compassContent
+			{
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				text-align: center;
+				width:340px;
+				height:345px;
+				margin-left: -170px; /*half width*/
+				margin-top: -172px; /*half height*/
+			}
+
 			#compass
 			{
 				position: absolute;
@@ -13,7 +25,7 @@
 				z-index: 1;
 				max-height: 345px;
 			}
-			
+
 			#needle
 			{
 				position: absolute;
@@ -21,6 +33,14 @@
 				left: 28px;
 				z-index: 10;
 				max-height: 345px;
+			}
+
+			#latlngContent
+			{
+                position: absolute;
+                top: 340px;
+                width:340px;
+                text-align: center;
 			}
 		</style>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -35,54 +55,72 @@
 
 		    console.log('userAgent: ' + userAgent);
 
-		    if (userAgent.match(/android|iphone|ipad|ipod|blackberry|iemobile|/))
+		    if (userAgent.match(/chrome/))
 		    {
-			    document.write("<script type='text/javascript' src='cordova.js'><\/script>"); // allow the build tool to inject this file based on the config.xml preference
-		  	}
-		  	else
-		  	{
 		    	document.write("<script type='text/javascript' src='cordova-old-ripple.js'><\/script>"); // for testing
+		  	}
+		  	else // (/android|iphone|ipad|ipod|blackberry|iemobile|/)
+		  	{
+			    document.write("<script type='text/javascript' src='cordova.js'><\/script>"); // allow the build tool to inject this file based on the config.xml preference
 			}
 		</script>
-		
+
 	</head>
 	<body>
-		
-		<img id="compass" src="compass.png" />
-		<img id="needle" src="needle.png" />
+
+		<div id="compassContent">
+			<img id="compass" src="compass.png" />
+			<img id="needle" src="needle.png" />
+
+            <div id="latlngContent">
+                Lat: <span id="lat"> </span>
+                Lng: <span id="lng"> </span>
+            </div>
+		</div>
 
 	</body>
-	
+
 	<script src="jQueryRotate.js"></script>
 
 	<script>
 
 		document.addEventListener('deviceready', onDeviceReady, false);
 
+        var watchHeadingId = null;
+        var watchHeadingOptions = { frequency: 50 };
+
+        var watchPositionId = null;
+        var watchPositionOptions = { enableHighAccuracy: false, timeout: 5000, maximumAge: 0 };
+
 		function onDeviceReady()
 		{
-			startCompass();
+			watchHeadingId = navigator.compass.watchHeading(watchHeading_onSuccess, watchHeading_onError, watchHeadingOptions);
+			watchPositionId = navigator.geolocation.watchPosition(watchPosition_onSuccess, watchPosition_onError, watchPositionOptions);
 		}
-		
-		function startCompass()
-		{
-			var options =  { frequency: 50 };
-			
-			navigator.compass.watchHeading(onSuccess, onError, options);
-		}
-		
-		function onSuccess(heading)
+
+		function watchHeading_onSuccess(heading)
 		{
 			$('#needle').rotate(-1 * heading.magneticHeading);
 		}
-		
-		function onError(error)
+
+		function watchHeading_onError(error)
 		{
-			alert('Error: ' + error);
+			alert('watchHeading Error: ' + error);
 		}
-		
+
+		function watchPosition_onSuccess(position)
+		{
+            $('#lat').text(position.coords.latitude);
+            $('#lng').text(position.coords.longitude);
+		}
+
+		function watchPosition_onError(error)
+		{
+			alert('getCurrentPosition Error: ' + error);
+		}
+
 	</script>
-	
+
 </html>
 
 
