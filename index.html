@@ -73,7 +73,7 @@
 			<img id="needle" src="needle.png" />
 
             <div id="latlngContent">
-                Lat: <span id="lat"> </span>
+                Lat: <span id="lat"> </span>,
                 Lng: <span id="lng"> </span>
             </div>
 		</div>
@@ -89,13 +89,14 @@
         var watchHeadingId = null;
         var watchHeadingOptions = { frequency: 50 };
 
-        var watchPositionId = null;
-        var watchPositionOptions = { enableHighAccuracy: false, timeout: 5000, maximumAge: 0 };
+        var getCurrentPositionId = null;
+        var getCurrentPositionOptions = { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 };
+        var getCurrentPositionErrorCount = 0;
 
 		function onDeviceReady()
 		{
 			watchHeadingId = navigator.compass.watchHeading(watchHeading_onSuccess, watchHeading_onError, watchHeadingOptions);
-			watchPositionId = navigator.geolocation.watchPosition(watchPosition_onSuccess, watchPosition_onError, watchPositionOptions);
+			getCurrentPosition();
 		}
 
 		function watchHeading_onSuccess(heading)
@@ -108,15 +109,39 @@
 			alert('watchHeading Error: ' + error);
 		}
 
-		function watchPosition_onSuccess(position)
+		// watchPosition does not seem to be working
+		function getCurrentPosition()
 		{
-            $('#lat').text(position.coords.latitude);
-            $('#lng').text(position.coords.longitude);
+            getCurrentPositionId = navigator.geolocation.getCurrentPosition(getCurrentPosition_onSuccess, getCurrentPosition_onError, getCurrentPositionOptions);
 		}
 
-		function watchPosition_onError(error)
+		function getCurrentPosition_onSuccess(position)
 		{
+            getCurrentPositionErrorCount = 0;
+
+            $('#lat').text(position.coords.latitude);
+            $('#lng').text(position.coords.longitude);
+
+            setTimeout(function ()
+            {
+                getCurrentPosition();
+            }, 1000);
+		}
+
+		function getCurrentPosition_onError(error)
+		{
+		    getCurrentPositionErrorCount++;
+
 			alert('getCurrentPosition Error: ' + error);
+
+			// try again?
+			if (getCurrentPositionErrorCount < 5)
+			{
+                setTimeout(function ()
+                {
+                    getCurrentPosition();
+                }, 1000);
+			}
 		}
 
 	</script>
