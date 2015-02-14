@@ -58,11 +58,33 @@
 
 		    if (userAgent.match(/chrome/))
 		    {
+		        // browser specific
 		    	document.write("<script type='text/javascript' src='libraries/cordova-old-version-for-ripple.js'><\/script>"); // for testing
+
+                document.write("<audio id='eastSound' src='sounds/east.mp3'></audio>");
+                document.write("<audio id='northSound' src='sounds/north.mp3'></audio>");
+                document.write("<audio id='southSound' src='sounds/south.mp3'></audio>");
+                document.write("<audio id='westSound' src='sounds/west.mp3'></audio>");
 		  	}
-		  	else // (/android|iphone|ipad|ipod|blackberry|iemobile|/)
+		  	else if(/android/)
+            {
+                // android specific
+                document.write("<script type='text/javascript' src='cordova.js'><\/script>"); // allow the build tool to inject this file based on the config.xml preference
+
+                document.write("<audio id='eastSound' src='/android_asset/www/default/sounds/east.mp3'></audio>");
+                document.write("<audio id='northSound' src='/android_asset/www/default/sounds/north.mp3'></audio>");
+                document.write("<audio id='southSound' src='/android_asset/www/default/sounds/south.mp3'></audio>");
+                document.write("<audio id='westSound' src='/android_asset/www/default/sounds/west.mp3'></audio>");
+            }
+		  	else // (/iphone|ipad|ipod|blackberry|iemobile|/)
 		  	{
+                // iphone specific
 			    document.write("<script type='text/javascript' src='cordova.js'><\/script>"); // allow the build tool to inject this file based on the config.xml preference
+
+                document.write("<audio id='eastSound' src='sounds/east.mp3'></audio>");
+                document.write("<audio id='northSound' src='sounds/north.mp3'></audio>");
+                document.write("<audio id='southSound' src='sounds/south.mp3'></audio>");
+                document.write("<audio id='westSound' src='sounds/west.mp3'></audio>");
 			}
 		</script>
 
@@ -79,12 +101,12 @@
             </div>
 		</div>
 
+<!--
         <audio id="eastSound" src="sounds/east.mp3"></audio>
         <audio id="northSound" src="sounds/north.mp3"></audio>
         <audio id="southSound" src="sounds/south.mp3"></audio>
         <audio id="westSound" src="sounds/west.mp3"></audio>
 
-<!--
         <audio id="eastSound" src="sounds/east.mp3">
             <source src="sounds/east.wav" type="audio/x-wav">
             <source src="sounds/east.ogg" type="application/ogg">
