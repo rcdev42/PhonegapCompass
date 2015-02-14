@@ -3,13 +3,16 @@
 	xmlns		= "http://www.w3.org/ns/widgets"
 	xmlns:gap   = "http://phonegap.com/ns/1.0"
 	id          = "com.example.compass"
-	version     = "1.4.0"
-	versionCode = "14"
+	version     = "1.5.0"
+	versionCode = "15"
 >
 	<preference name="phonegap-version" value="3.6.3" />
 
-	<gap:plugin name="Compass" value="org.apache.cordova.core.CompassListener" />
-	<gap:plugin name="Geolocation" value="org.apache.cordova.core.GeoBroker" />
+	<!-- gap:plugin name="Compass" value="org.apache.cordova.core.CompassListener" / -->
+	<!-- gap:plugin name="Geolocation" value="org.apache.cordova.core.GeoBroker" / -->
+
+	<gap:plugin name="Compass" value="org.apache.cordova.device-orientation" />
+	<gap:plugin name="Geolocation" value="org.apache.cordova.geolocation" />
 
 	<name>Basic Compass</name>
 	<description>Basic Compass</description>
