@@ -11,8 +11,8 @@
 	<!-- gap:plugin name="Compass" value="org.apache.cordova.core.CompassListener" / -->
 	<!-- gap:plugin name="Geolocation" value="org.apache.cordova.core.GeoBroker" / -->
 
-	<gap:plugin name="Compass" value="org.apache.cordova.device-orientation" />
-	<gap:plugin name="Geolocation" value="org.apache.cordova.geolocation" />
+	<gap:plugin name="org.apache.cordova.device-orientation" />
+	<gap:plugin name="org.apache.cordova.geolocation" />
 
 	<name>Basic Compass</name>
 	<description>Basic Compass</description>
