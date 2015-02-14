@@ -1,17 +1,15 @@
 
-// http://stackoverflow.com/questions/22515699/play-sound-on-phonegap-app-for-android
+
 function playAudio(id)
 {
-    var audioElement = document.getElementById(id);
-    var url = audioElement.getAttribute('src');
+    var sound = document.getElementById(id);
 
-    var my_media = new Media(url,
-        // success callback
-        function () { console.log("playAudio():Audio Success"); },
-        // error callback
-        function (err) { console.log("playAudio():Audio Error: " + err); }
-    );
+    if (!sound.paused)
+    {
+        sound.pause();
+        sound.currentTime = 0.0;
+    }
 
-    // play
-    my_media.play();
+    sound.currentTime = 0.1;
+    sound.play();
 }
