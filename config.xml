@@ -13,6 +13,7 @@
 
 	<gap:plugin name="org.apache.cordova.device-orientation" />
 	<gap:plugin name="org.apache.cordova.geolocation" />
+	<gap:plugin name="org.apache.cordova.media" />
 
 	<name>Basic Compass</name>
 	<description>Basic Compass</description>
