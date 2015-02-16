@@ -19,9 +19,9 @@
 	<gap:plugin name="org.apache.cordova.network-information" />
 
 
-	<!-- gap:plugin name="org.apache.cordova.geolocation" / -->
+	<gap:plugin name="org.apache.cordova.geolocation" />
 	<!-- gap:plugin name="de.appplant.cordova.plugin.background-mode" / -->
-	<gap:plugin name="org.transistorsoft.cordova.background-geolocation" />
+	<!-- gap:plugin name="org.transistorsoft.cordova.background-geolocation" / -->
 
 	<preference name="phonegap-version" value="3.6.3" />
 
