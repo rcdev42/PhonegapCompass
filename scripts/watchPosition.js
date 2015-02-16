@@ -1,14 +1,15 @@
 
+// https://github.com/christocracy/cordova-plugin-background-geolocation/blob/37f2cd9f6be82ca8ea3046c246b1866d4a669f06/README.md
 // http://www.joshmorony.com/background-geolocation-with-phonegap-build/
 var watchPositionOptions = { frequency: 3000, enableHighAccuracy: true };
 var watchPositionBackground = null;
 
 var watchPosition_onSuccess = function (location)
 {
-    runtap.util.gps.onBackgroundSuccess(location);
+    $('#lat').text(location.latitude);
+    $('#lng').text(location.longitude);
 
-    $('#lat').text(runtap.util.gps.lastLatitude);
-    $('#lng').text(runtap.util.gps.lastLongitude);
+    watchPositionBackground.finish();
 };
 
 var watchPosition_onError = function (error)
@@ -20,9 +21,13 @@ document.addEventListener('deviceready', watchPosition_onDeviceReady, false);
 
 function watchPosition_onDeviceReady()
 {
-    navigator.geolocation.watchPosition(runtap.util.gps.onSuccess, runtap.util.gps.onError, options);
+    // init gps
+    window.navigator.geolocation.getCurrentPosition(function (location)
+    {
+        console.log('Location from Phonegap');
+    });
 
-    watchPositionBackground = navigator.plugins.backgroundGeoLocation;
+    watchPositionBackground = window.plugins.backgroundGeoLocation;
 
     watchPositionBackground.configure
     (
